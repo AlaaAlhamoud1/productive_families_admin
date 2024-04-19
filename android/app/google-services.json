@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "40850024253",
+    "project_id": "productive-families-520a1",
+    "storage_bucket": "productive-families-520a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40850024253:android:508faa7800733066e38754",
+        "android_client_info": {
+          "package_name": "com.example.productive_families_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbw1RoESH0fb7FHMF-gtGgvNCg8rrUrMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
