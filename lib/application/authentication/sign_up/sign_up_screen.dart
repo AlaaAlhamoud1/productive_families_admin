@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
 import 'package:productive_families_admin/application/storage/firebase_storage.dart';
 import 'package:productive_families_admin/auth.dart';
+import 'package:productive_families_admin/core/colors.dart';
 import 'package:productive_families_admin/widget_tree.dart';
 
 import '../../widgets/input_form_button.dart';
@@ -82,10 +83,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text(
+                     Text(
                       "gender",
                       style: TextStyle(
-                          color: Color(0xFF4AC382),
+                          color: AppColors.appColor,
                           fontWeight: FontWeight.bold),
                     ),
                     DropdownButton<String>(

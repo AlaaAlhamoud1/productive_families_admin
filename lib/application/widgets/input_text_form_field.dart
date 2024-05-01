@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families_admin/core/colors.dart';
 
 class InputTextFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -41,7 +42,7 @@ class _InputTextFormFieldState extends State<InputTextFormField> {
           filled: true,
           fillColor: Colors.white,
           hintText: widget.hint,
-          hintStyle: const TextStyle(color: Color(0xFF4AC382)),
+          hintStyle:  TextStyle(color: AppColors.appColor),
           suffixIcon: widget.isSecureField
               ? IconButton(
                   icon: Icon(

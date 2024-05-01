@@ -10,6 +10,7 @@ import 'package:productive_families_admin/application/stores/models/ads_model.da
 import 'package:productive_families_admin/application/stores/models/store_model.dart';
 import 'package:productive_families_admin/application/widgets/input_form_button.dart';
 import 'package:productive_families_admin/application/widgets/input_text_form_field.dart';
+import 'package:productive_families_admin/core/colors.dart';
 import 'package:productive_families_admin/core/data/local_data/shared_pref.dart';
 import 'package:productive_families_admin/core/utils/common.dart';
 
@@ -36,8 +37,9 @@ late ImagePicker _picker;
 XFile? _filePicked;
 late ImagePicker _adsPicker;
 XFile? _adsFilePicked;
-List<String> type = ['food', 'attention', 'handicrafts'];
+List<String> type = ['food', 'beauty', 'handicrafts'];
 String? selctedItem = 'food';
+String? selected = 'food';
 
 class _StoreScreenState extends State<StoreScreen> {
   @override
@@ -55,25 +57,16 @@ class _StoreScreenState extends State<StoreScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Expanded(
-                        child: Text('Store Name:',
-                            style: TextStyle(
-                              fontSize: 20,
-                            )),
-                      ),
+                      const Text('Storename:',
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
                       Expanded(
                         child: Text(
                           storeModel!.storeName.toString(),
                           style: const TextStyle(
-                            fontFamily: 'dancing_script',
                             fontSize: 30,
-                            color: Colors.amber,
-                            shadows: [
-                              BoxShadow(
-                                  color: Colors.amber,
-                                  blurRadius: 12,
-                                  spreadRadius: 10),
-                            ],
+                            color: Color(0xff984979),
                           ),
                         ),
                       )
@@ -141,10 +134,10 @@ class _StoreScreenState extends State<StoreScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Text(
+                            Text(
                               "type",
                               style: TextStyle(
-                                  color: Color(0xFF4AC382),
+                                  color: AppColors.appColor,
                                   fontWeight: FontWeight.bold),
                             ),
                             DropdownButton<String>(
@@ -157,7 +150,15 @@ class _StoreScreenState extends State<StoreScreen> {
                                       )))
                                   .toList(),
                               onChanged: (item) {
-                                setState(() => selctedItem = item);
+                                setState(() {
+                                  if (item == 'beauty') {
+                                    selected = 'attention';
+                                    selctedItem = item;
+                                  } else {
+                                    selctedItem = item;
+                                    selected = item;
+                                  }
+                                });
                               },
                             ),
                           ],
@@ -183,7 +184,7 @@ class _StoreScreenState extends State<StoreScreen> {
                                 // await addProductsToList();
                                 await addProduct(
                                         product: ProductModel(
-                                            type: selctedItem,
+                                            type: selected,
                                             image: _filePicked!.path,
                                             description: description.text,
                                             amount: int.tryParse(amount.text),
@@ -207,10 +208,10 @@ class _StoreScreenState extends State<StoreScreen> {
                                   });
                                 });
                               },
-                              icon: const Icon(
+                              icon: Icon(
                                 size: 35,
                                 Icons.check_circle,
-                                color: Color(0xFF4AC382),
+                                color: AppColors.appColor,
                               ),
                             )
                           ],
@@ -254,10 +255,10 @@ class _StoreScreenState extends State<StoreScreen> {
                                     ads: AdsModel(image: _adsFilePicked!.path),
                                     image: File(_adsFilePicked!.path));
                               },
-                              icon: const Icon(
+                              icon: Icon(
                                 size: 35,
                                 Icons.check_circle,
-                                color: Color(0xFF4AC382),
+                                color: AppColors.appColor,
                               ),
                             )
                           ],
@@ -280,14 +281,14 @@ class _StoreScreenState extends State<StoreScreen> {
                               child: const Text(
                                 "chech your Product",
                                 style: TextStyle(
-                                    fontSize: 20, fontFamily: 'dancing_script'),
+                                  fontSize: 20,
+                                ),
                               )),
                         )
                       : const Padding(
                           padding: EdgeInsets.only(top: 50),
                           child: Text('don\'t have any products',
                               style: TextStyle(
-                                fontFamily: 'dancing_script',
                                 fontSize: 20,
                               )),
                         )

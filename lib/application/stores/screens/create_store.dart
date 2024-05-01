@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:productive_families_admin/application/storage/firebase_storage.dart';
 import 'package:productive_families_admin/application/widgets/input_form_button.dart';
 import 'package:productive_families_admin/application/widgets/input_text_form_field.dart';
+import 'package:productive_families_admin/core/colors.dart';
 import 'package:productive_families_admin/core/utils/common.dart';
 
 class CreateStore extends StatefulWidget {
@@ -33,7 +34,7 @@ class _CreateStoreState extends State<CreateStore> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Create Store"),
-        backgroundColor: const Color(0xFF4AC382),
+        backgroundColor: AppColors.appColor,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -122,16 +123,16 @@ class _CreateStoreState extends State<CreateStore> {
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Choose Location",
                       style: TextStyle(
-                        color: Color(0xFF4AC382),
+                        color: AppColors.appColor,
                       )),
                   Icon(
                     Icons.location_on_rounded,
-                    color: Color(0xFF4AC382),
+                    color: AppColors.appColor,
                   )
                 ],
               ),
@@ -173,10 +174,10 @@ class _CreateStoreState extends State<CreateStore> {
                         toast('error');
                       }
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       size: 35,
                       Icons.check_circle,
-                      color: Color(0xFF4AC382),
+                      color: AppColors.appColor,
                     ),
                   )
                 ],

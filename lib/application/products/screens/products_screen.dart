@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:productive_families_admin/application/products/widgets/products_card.dart';
 import 'package:productive_families_admin/application/storage/firebase_storage.dart';
 import 'package:productive_families_admin/application/stores/models/store_model.dart';
+import 'package:productive_families_admin/core/colors.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});
@@ -10,7 +11,7 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4AC382),
+        backgroundColor: AppColors.appColor,
         title: const Text("Products"),
       ),
       body: FutureBuilder<StoreModel?>(
@@ -26,18 +27,13 @@ class ProductsScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(children: [
-                        const Expanded(
-                          flex: 2,
-                          child: Text(
-                            'Products count:',
-                            style: TextStyle(
-                                fontFamily: 'dancing_script', fontSize: 20),
-                          ),
+                        const Text(
+                          'Products count:',
+                          style: TextStyle(fontSize: 20),
                         ),
                         Expanded(
                           child: Text("${storeModel.products!.length}",
-                              style: const TextStyle(
-                                  fontFamily: 'dancing_script', fontSize: 20)),
+                              style: const TextStyle(fontSize: 20)),
                         )
                       ]),
                       Expanded(

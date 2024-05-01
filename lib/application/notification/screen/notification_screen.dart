@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families_admin/core/colors.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -7,7 +8,7 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4AC382),
+        backgroundColor: AppColors.appColor,
         title: const Text(
           "Notificaiton",
         ),

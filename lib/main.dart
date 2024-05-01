@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_loadingindicator/flutter_loadingindicator.dart';
 import 'package:productive_families_admin/application/notification/awesome_controller.dart';
-import 'package:productive_families_admin/application/notification/local_notifications.dart';
+import 'package:productive_families_admin/application/home/local_notifications.dart';
 import 'package:productive_families_admin/business_logic/blocs/auth/auth_bloc.dart';
+import 'package:productive_families_admin/core/colors.dart';
 import 'package:productive_families_admin/widget_tree.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -122,7 +123,7 @@ class ProductiveFamiliesApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4AC382)),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.appColor),
         useMaterial3: true,
       ),
       builder: EasyLoading.init(),
@@ -139,7 +140,7 @@ void configLoading() {
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = Colors.white
-    ..backgroundColor = const Color(0xFF4AC382)
+    ..backgroundColor = AppColors.appColor
     ..indicatorColor = Colors.white
     ..textColor = Colors.white
     ..userInteractions = false

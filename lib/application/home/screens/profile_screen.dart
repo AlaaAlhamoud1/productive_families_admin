@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productive_families_admin/application/authentication/model/user_model.dart';
 import 'package:productive_families_admin/application/storage/firebase_storage.dart';
+import 'package:productive_families_admin/core/colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4AC382),
+        backgroundColor: AppColors.appColor,
         title: const Text("Profile"),
       ),
       body: FutureBuilder<UserModel?>(
@@ -139,7 +140,7 @@ class ProfileScreen extends StatelessWidget {
                             // ),
                             Expanded(
                                 child: IconButton(
-                              color: const Color(0xFF4AC382),
+                              color: AppColors.appColor,
                               icon: const Icon(Icons.edit),
                               onPressed: () {},
                             )),

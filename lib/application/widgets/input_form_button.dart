@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productive_families_admin/core/colors.dart';
 
 class InputFormButton extends StatelessWidget {
   final Function()? onClick;
@@ -18,7 +19,7 @@ class InputFormButton extends StatelessWidget {
         height: 60,
         width: 250,
         decoration: BoxDecoration(
-            color: const Color(0xFF4AC382),
+            color: AppColors.appColor,
             borderRadius: const BorderRadius.all(Radius.circular(20)),
             boxShadow: [
               BoxShadow(

@@ -12,126 +12,85 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder( 
+    return FutureBuilder(
         future: getImageUrl(product!.image!),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            return Container(
-              height: 150,
-              decoration: BoxDecoration(
-                color: const Color(0xFF4AC382),
-                border: Border.all(color: Colors.black),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Row(
+            return SizedBox(
+              height: 80,
+              // decoration: BoxDecoration(
+              //   border: Border.all(color: Colors.black),
+              //   borderRadius: const BorderRadius.all(Radius.circular(10)),
+              // ),
+              child: Column(
                 children: [
                   Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Image.network(
-                        snapshot.data ?? "",
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Expanded(
-                    flex: 5,
-                    child: Column(
+                    child: Row(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Image.network(
+                            snapshot.data ?? "",
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         Expanded(
-                          child: Row(
+                          flex: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              const Expanded(
-                                child: Text(
-                                  'name:' ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      product!.name ?? '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Expanded(
-                                child: Text(
-                                  product!.name ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
+                              Text(
+                                product!.description ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.black,
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Expanded(
-                          child: Row(
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  'description:' ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  product!.description ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  'price:' ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  product!.price.toString() ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            product!.price != null
+                                ? product!.price.toString()
+                                : '',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
+                  const Divider(
+                    height: 2,
+                    color: Colors.black,
+                  )
                 ],
               ),
             );

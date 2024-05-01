@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:productive_families_admin/application/orders/models/orders_model.dart';
+import 'package:productive_families_admin/core/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 class OrdersContainerWidget extends StatelessWidget {
@@ -17,7 +19,8 @@ class OrdersContainerWidget extends StatelessWidget {
     return Container(
       height: 125,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: Colors.grey.shade500),
+          borderRadius: BorderRadius.circular(20),
+          color: AppColors.appColor.withOpacity(0.7)),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,45 +29,50 @@ class OrdersContainerWidget extends StatelessWidget {
             flex: 3,
             child: Row(
               children: [
-                SizedBox.square(
-                  dimension: 50,
+                Expanded(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      '',
-                      fit: BoxFit.fill,
-                      errorBuilder: (context, exception, stackTrace) {
-                        if (exception is HttpException) {
-                          return Image.asset(
-                            'assets/images/new_logo.png',
+                    child: FutureBuilder<String>(
+                        future: getImageUrl(
+                            ordersModel.products!.first.image ?? ""),
+                        builder: (context, snapshot) {
+                          return Image.network(
+                            snapshot.data ?? "",
                             fit: BoxFit.fill,
+                            errorBuilder: (context, exception, stackTrace) {
+                              if (exception is HttpException) {
+                                return Image.asset(
+                                  ordersModel.products!.first.image ?? "",
+                                  fit: BoxFit.fill,
+                                );
+                              } else {
+                                return Image.asset(
+                                  ordersModel.products!.first.image ?? "",
+                                  fit: BoxFit.fill,
+                                );
+                              }
+                            },
+                            frameBuilder: (context, child, frame, loaded) {
+                              if (frame != null) {
+                                return child;
+                              } else {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey.withOpacity(0.8),
+                                  highlightColor: Colors.grey.withOpacity(0.2),
+                                  child: Container(
+                                      color: Colors.grey,
+                                      width: double.infinity),
+                                );
+                              }
+                            },
                           );
-                        } else {
-                          return Image.asset(
-                            'assets/images/new_logo.png',
-                            fit: BoxFit.fill,
-                          );
-                        }
-                      },
-                      frameBuilder: (context, child, frame, loaded) {
-                        if (frame != null) {
-                          return child;
-                        } else {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey.withOpacity(0.8),
-                            highlightColor: Colors.grey.withOpacity(0.2),
-                            child: Container(
-                                color: Colors.grey, width: double.infinity),
-                          );
-                        }
-                      },
-                    ),
+                        }),
                   ),
                 ),
                 const SizedBox(
                   width: 15,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 75,
                   child: Text(
                     "" ?? '',
@@ -72,7 +80,7 @@ class OrdersContainerWidget extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Montserrat-B",
                       fontSize: 12,
-                      color: Color(0xFF4AC382),
+                      color: AppColors.appColor,
                     ),
                   ),
                 ),
@@ -94,9 +102,9 @@ class OrdersContainerWidget extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons.date_range,
-                  color: Color(0xFF4AC382),
+                  color: AppColors.appColor,
                   size: 24,
                 ),
                 Text(
@@ -117,7 +125,7 @@ class OrdersContainerWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  'time',
+                  "time",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Montserrat-M",
@@ -125,10 +133,10 @@ class OrdersContainerWidget extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons.timelapse,
                   size: 24,
-                  color: Color(0xFF4AC382),
+                  color: AppColors.appColor,
                 ),
                 Text(
                   ordersModel.date!.substring(11, 16) ?? '',
@@ -163,5 +171,15 @@ class OrdersContainerWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<String> getImageUrl(String imagePath) async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref().child(imagePath);
+      return await storageRef.getDownloadURL();
+    } catch (e) {
+      print("Error getting image URL: $e");
+      return ""; // Return an empty string or some default URL in case of an error
+    }
   }
 }

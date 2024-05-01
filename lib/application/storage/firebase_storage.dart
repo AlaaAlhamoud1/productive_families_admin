@@ -250,3 +250,77 @@ Future<void> changeOrderStatus(
     // You can choose to throw an exception here or handle it accordingly
   }
 }
+
+Future<List<ProductModel?>> getRandomProducts() async {
+  try {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('users').get();
+
+    List<ProductModel?> allProducts = [];
+
+    for (QueryDocumentSnapshot userSnapshot in querySnapshot.docs) {
+      if (userSnapshot.exists) {
+        final dynamic userData = userSnapshot.data();
+
+        if (userData != null && userData['store'] != null) {
+          final List<dynamic> productsData =
+              userData['store']['products'] ?? [];
+
+          // Convert productsData to a list of ProductModel
+          List<ProductModel?> products = productsData
+              .map((productData) => ProductModel.fromJson(productData))
+              .toList();
+
+          allProducts.addAll(products);
+        }
+      }
+    }
+
+    // Shuffle the list of products
+    allProducts.shuffle();
+
+    // Return the first two products (or fewer if there are fewer than two products)
+    return allProducts.length >= 2 ? allProducts.sublist(0, 2) : allProducts;
+  } catch (e) {
+    print('Error fetching random products: $e');
+    return [];
+  }
+}
+
+Future<void> deleteProductById(String productId) async {
+  try {
+    final userDoc = FirebaseFirestore.instance
+        .collection('users')
+        .doc(getStringAsync('ID'));
+
+    // Get the current list of products
+    final snapshot = await userDoc.get();
+    final List<dynamic> currentProducts =
+        snapshot.data()?['store']['products'] ?? [];
+
+    // Find the index of the product to delete
+    int indexToDelete = -1;
+    for (int i = 0; i < currentProducts.length; i++) {
+      if (currentProducts[i]['name'] == productId) {
+        indexToDelete = i;
+        break;
+      }
+    }
+
+    if (indexToDelete != -1) {
+      // Remove the product from the list
+      currentProducts.removeAt(indexToDelete);
+
+      // Update Firestore document with the updated list of products
+      await userDoc.update({
+        'store.products': currentProducts,
+      });
+
+      print('Product with ID $productId deleted successfully');
+    } else {
+      print('Product with ID $productId not found');
+    }
+  } catch (e) {
+    print('Error deleting product: $e');
+  }
+}

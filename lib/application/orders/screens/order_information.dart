@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:productive_families_admin/application/orders/models/orders_model.dart';
 import 'package:productive_families_admin/application/products/widgets/products_card.dart';
 import 'package:productive_families_admin/application/storage/firebase_storage.dart';
+import 'package:productive_families_admin/core/colors.dart';
 
 class OrderInformationScreen extends StatefulWidget {
   final OrderModel orderModel;
@@ -114,11 +115,11 @@ class _OrderInformationScreenState extends State<OrderInformationScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   "change status",
                   style: TextStyle(
-                      color: Color(0xFF4AC382), fontWeight: FontWeight.bold),
+                      color: AppColors.appColor, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
