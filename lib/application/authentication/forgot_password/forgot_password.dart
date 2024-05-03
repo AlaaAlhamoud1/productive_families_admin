@@ -34,6 +34,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             Expanded(
               child: InputTextFormField(
+                type: TextInputType.emailAddress,
                 controller: emailController,
                 hint: 'Email',
               ),

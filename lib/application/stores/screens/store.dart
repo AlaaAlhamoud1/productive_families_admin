@@ -105,6 +105,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     child: Column(
                       children: [
                         InputTextFormField(
+                          type: TextInputType.name,
                           controller: name,
                           hint: 'Name',
                         ),
@@ -120,14 +121,17 @@ class _StoreScreenState extends State<StoreScreen> {
                           ],
                         ),
                         InputTextFormField(
+                          type: TextInputType.number,
                           hint: 'price',
                           controller: price,
                         ),
                         InputTextFormField(
+                          type: TextInputType.name,
                           hint: "description",
                           controller: description,
                         ),
                         InputTextFormField(
+                          type: TextInputType.number,
                           hint: "amount",
                           controller: amount,
                         ),

@@ -71,12 +71,14 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InputTextFormField(
+                    type: TextInputType.emailAddress,
                     controller: _controllerEmail,
                     hint: "Email",
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: InputTextFormField(
+                      type: TextInputType.name,
                       controller: _controllerPassword,
                       hint: "Password",
                       isSecureField: true,

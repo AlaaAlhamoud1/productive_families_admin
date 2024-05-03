@@ -1,4 +1,5 @@
 import 'package:productive_families_admin/application/stores/models/store_model.dart';
+import 'package:productive_families_admin/core/data/local_data/shared_pref.dart';
 
 class UserModel {
   String? id;
@@ -7,14 +8,15 @@ class UserModel {
   int? age;
   StoreModel? store;
   String? gender;
-  UserModel({
-    this.id,
-    this.name,
-    this.email,
-    this.age,
-    this.store,
-    this.gender,
-  });
+  String? location;
+  UserModel(
+      {this.id,
+      this.name,
+      this.email,
+      this.age,
+      this.store,
+      this.gender,
+      required this.location});
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -23,6 +25,7 @@ class UserModel {
         'age': age,
         'store': store,
         'gender': gender,
+        'location': location
       };
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -36,5 +39,16 @@ class UserModel {
       store = null;
     }
     gender = json['gender'];
+    if (json['location'] != null) {
+      location = json['location'];
+    } else {
+      location = null;
+    }
+    setValue('ID', email);
+    setValue('NAME', name);
+    setValue('AGE', age.toString());
+    setValue('EMAIL', email);
+    setValue('GENDER', gender);
+    setValue('LOCATION', location);
   }
 }

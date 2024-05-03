@@ -13,16 +13,18 @@ Future createUser(
     {required String name,
     required int age,
     required String email,
-    required String gender}) async {
+    required String gender,
+    required String location}) async {
   final docUser = FirebaseFirestore.instance.collection('users').doc(email);
   final user = UserModel(
-    id: email,
-    name: name,
-    age: age,
-    email: email,
-    gender: gender,
-    // store: StoreModel(),
-  );
+      id: email,
+      name: name,
+      age: age,
+      email: email,
+      gender: gender,
+      location: location
+      // store: StoreModel(),
+      );
   final json = user.toJson();
   await docUser.set(json).then((value) {
     setValue('ID', email);
@@ -31,7 +33,6 @@ Future createUser(
     setValue('EMAIL', email);
   });
 }
-
 Future<UserModel?> getUser() async {
   final docUser =
       FirebaseFirestore.instance.collection('users').doc(getStringAsync("ID"));

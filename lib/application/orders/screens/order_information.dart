@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:productive_families_admin/application/orders/models/orders_model.dart';
+import 'package:productive_families_admin/application/orders/screens/orders_sreen.dart';
 import 'package:productive_families_admin/application/products/widgets/products_card.dart';
 import 'package:productive_families_admin/application/storage/firebase_storage.dart';
 import 'package:productive_families_admin/core/colors.dart';
+import 'package:productive_families_admin/core/utils/extensions/context_extensions.dart';
 
 class OrderInformationScreen extends StatefulWidget {
   final OrderModel orderModel;
@@ -155,7 +157,15 @@ class _OrderInformationScreenState extends State<OrderInformationScreen> {
                     changeOrderStatus(
                       orderId: widget.orderModel.orderId ?? "",
                       newStatus: selctedItem ?? "",
-                    );
+                    ).then((value) {
+                      context.pop();
+
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OrdersTabScreen(),
+                          ));
+                    });
                   },
                   icon: const Icon(Icons.check_sharp))
             ],

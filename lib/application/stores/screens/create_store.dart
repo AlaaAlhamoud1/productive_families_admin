@@ -8,6 +8,7 @@ import 'package:productive_families_admin/application/widgets/input_form_button.
 import 'package:productive_families_admin/application/widgets/input_text_form_field.dart';
 import 'package:productive_families_admin/core/colors.dart';
 import 'package:productive_families_admin/core/utils/common.dart';
+import 'package:productive_families_admin/widget_tree.dart';
 
 class CreateStore extends StatefulWidget {
   const CreateStore({super.key});
@@ -79,14 +80,17 @@ class _CreateStoreState extends State<CreateStore> {
                 ],
               ),
               InputTextFormField(
+                type: TextInputType.name,
                 controller: storeName,
                 hint: 'Store Name',
               ),
               InputTextFormField(
+                type: TextInputType.name,
                 hint: 'activity type',
                 controller: activityType,
               ),
               InputTextFormField(
+                type: TextInputType.name,
                 hint: "description",
                 controller: desciption,
               ),
@@ -166,7 +170,11 @@ class _CreateStoreState extends State<CreateStore> {
                         ).then(
                           (value) {
                             toast("Store Added Successfully");
-                            Navigator.pop(context);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const WidgetTree()),
+                                (route) => false);
                           },
                         );
                       } else {
